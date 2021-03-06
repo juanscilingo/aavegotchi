@@ -57,13 +57,20 @@ const Navbar = () => {
         <Item>
           <Link to="/utils">Utils</Link>
         </Item>
-        <Item>
+        {/* <Item>
           <Link to="/aavegotchi/8431">Aavegotchi</Link>
-        </Item>
+        </Item> */}
+        {user.account && (
+          <>
+            <Item>
+              <Link to="/user/aavegotchis">My Aavegotchis</Link>
+            </Item>
+          </>
+        )}
         <Item right flex>
           {user.account && (
             <Item>
-              <Badge>{formatter.trimmedAddress(user.account)}</Badge>
+              <Badge color="purple">{formatter.trimmedAddress(user.account)}</Badge>
             </Item>
           )}
           <Item>

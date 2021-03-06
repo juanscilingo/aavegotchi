@@ -9,6 +9,8 @@ export const GlobalStyle = createGlobalStyle`
     --purple-2: #5413b1;
     --lavender: #c462e8;
     --lavender-2: #aa4fcc;
+    --red: #de2f2f;
+    --red-2: #bf2b2b;
 
     /* ELEMENTS */
     --placeholder-color: #b1afaf;

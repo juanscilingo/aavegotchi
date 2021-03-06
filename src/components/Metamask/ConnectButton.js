@@ -1,43 +1,15 @@
-import BigNumber from 'bignumber.js';
 import Button from 'components/UI/Button/Button';
 import useUserContext from 'hooks/useUserContext';
-import { useEffect, useState } from 'react';
-import { CHAIN_ID } from 'utils/constants';
+import { AUTOCONNECT_STORAGE_KEY } from 'context/user';
+import Badge from 'components/UI/Badge/Badge';
 
 const ConnectButton = props => {
   const { user, setUser } = useUserContext();
-  const [status, setStatus] = useState();
-
-  useEffect(() => {
-    const detectMetamask = async () => {
-      const status = { connected: false };
-
-      if (typeof window.ethereum === 'undefined')
-        status.installed = false;
-      else {
-        status.installed = true;
-
-        try {
-          const chainId = new BigNumber(await window.ethereum.request({ method: 'eth_chainId' })).toNumber();
-          
-          if (chainId === CHAIN_ID.Matic)
-            status.isMatic = true;
-          else 
-            status.isMatic = false;
-        } catch (err) {
-          console.error(err)
-        }
-      }
-
-      setStatus(status)
-    }
-
-    detectMetamask();
-  }, []);
 
   const connect = async () => {
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      localStorage.setItem(AUTOCONNECT_STORAGE_KEY, true);
       setUser(prevState => ({ ...prevState, account: accounts[0] }));
     } catch (err) {
       console.error(err);
@@ -46,20 +18,21 @@ const ConnectButton = props => {
 
   const disconnect = async () => {
     setUser(prevState => ({ ...prevState, account: undefined }))
+    localStorage.setItem(AUTOCONNECT_STORAGE_KEY, false);
   }
 
-  if (!status)
+  if (!user)
     return null;
 
-  if (!status.installed)
+  if (!user.installed)
     return (
       <a href="https://metamask.io/download.html" target="_blank" rel="noopener noreferrer">
-        <Button>Install Metamask</Button>
+        <Button color="purple">Install Metamask</Button>
       </a>
     )
     
-  if (!status.isMatic)
-    return <Button color="red">Wrong Network</Button>
+  if (!user.isMatic)
+    return <Badge large color="red">Wrong Network</Badge>
 
   if (user.account)
     return <Button onClick={disconnect} color="purple">Disconnect</Button>

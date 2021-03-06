@@ -21,10 +21,10 @@ const StyledButton = styled.button`
   padding: 10px 15px;
   border-radius: 4px;
   color: white;
-  background: var(--lavender);
   cursor: pointer;
   outline: none;
   user-select: none;
+  background: var(--lavender);
 
   :hover {
     background: var(--lavender-2);

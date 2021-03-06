@@ -32,14 +32,19 @@ const dot = css`
   }
 `
 
+const color = c => css`
+  background: var(--${c});
+`
+
 const Style = styled.div`
   display: inline-block;
-  background: ${props => props.color ? props.color : `var(--purple)`};
   font-size: 14px;
   padding: 5px;
   border-radius: 4px;
   color: white;
+  background: var(--lavender);
 
+  ${props => props.color && color(props.color)}
   ${props => props.large && large}
   ${props => props.dot && dot}
 `

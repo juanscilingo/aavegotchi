@@ -8,6 +8,11 @@ const Utils = props => {
   const [value, setValue] = useState('');
 
   const checkNameAvailability = async () => {
+    if (!value) {
+      alert('Please enter a name');
+      return;
+    }
+
     const result = await diamondContract.methods.aavegotchiNameAvailable(value).call();
     alert(result ? "Name taken :(" : "Name available :D");
   }
