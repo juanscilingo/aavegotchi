@@ -17,10 +17,12 @@ const Utils = props => {
     alert(result ? "Name taken :(" : "Name available :D");
   }
 
+  const onKeyDown = e => e.key === 'Enter' && checkNameAvailability();
+
   return (
     <div>
       <InputGroup>
-        <Input value={value} onChange={e => setValue(e.target.value)} placeholder="Enter a name" /> 
+        <Input value={value} onChange={e => setValue(e.target.value)} placeholder="Enter a name" onKeyDown={onKeyDown} /> 
         <Button onClick={checkNameAvailability}>Check Availability</Button>
       </InputGroup>
     </div>
