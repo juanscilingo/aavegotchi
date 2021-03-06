@@ -2,6 +2,7 @@ import ConnectButton from "components/Metamask/ConnectButton"
 import useUserContext from "hooks/useUserContext"
 import { Link } from "react-router-dom"
 import styled, { css } from "styled-components"
+import { desktop } from "theme/utils";
 import formatter from 'utils/formatter';
 import Badge from "../Badge/Badge";
 
@@ -43,6 +44,7 @@ const Item = styled.div`
 
   ${props => props.right && right};
   ${props => props.flex && flex};
+  ${props => props.desktop && desktop};
 `
 
 const Navbar = () => {
@@ -69,7 +71,7 @@ const Navbar = () => {
         )}
         <Item right flex>
           {user.account && (
-            <Item>
+            <Item desktop>
               <Badge color="purple">{formatter.trimmedAddress(user.account)}</Badge>
             </Item>
           )}

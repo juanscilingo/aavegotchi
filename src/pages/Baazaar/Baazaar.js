@@ -10,6 +10,11 @@ const Style = styled.div`
 
 const Navigation = styled.div`
   margin: 15px 0px 30px 0px;
+
+  @media(max-width: 550px) {
+    display: flex;
+    justify-content: space-between;
+  }
 `
 
 const active = css`
@@ -26,6 +31,12 @@ const NavLink = styled(Link)`
   padding: 10px 15px;
   margin-right: 15px;
   border-radius: 6px;
+
+  @media(max-width: 550px) {
+    font-size: 15px;
+    margin-right: 10px;
+    padding: 8px 12px;
+  }
 
   ${props => props.$active && active};
 `

@@ -20,6 +20,16 @@ const StyleLink = styled(Link)`
   &:hover {
     color: var(--purple-2);
   }
+  
+  @media(max-width: 1024px) {
+    width: calc(100% / 3 - 20px);
+  }
+  @media(max-width: 768px) {
+    width: calc(100% / 2 - 20px);
+  }
+  @media(max-width: 550px) {
+    width: calc(100%);
+  }
 `
 
 const Image = styled.img`
