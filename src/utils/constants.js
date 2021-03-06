@@ -1,7 +1,7 @@
 export const LISTING_CATEGORY = {
   'portal': 0,
   'verification-pending': 1,
-  'opened-portal': 2,
+  'open-portal': 2,
   'aavegotchi': 3
 }
 
@@ -17,4 +17,8 @@ export const TRAITS_BY_INDEX = {
   3: 'Brain Size',
   4: 'Eye Shape',
   5: 'Eye Color',
+}
+
+export const CHAIN_ID = {
+  Matic: 137
 }

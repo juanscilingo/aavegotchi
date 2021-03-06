@@ -7,7 +7,7 @@ const Style = styled.div`
 const Aavegotchi = props => {
   return (
     <Style>
-      Aavegotchi
+      <h4>Aavegotchi</h4>
     </Style>
   )
 }

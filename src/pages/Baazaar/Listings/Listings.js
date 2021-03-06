@@ -17,7 +17,7 @@ const Listings = props => {
 
   useEffect(() => {
     const getListings = async() => {
-      let listings = await diamondContract.methods.getAavegotchiListings(category, LISTING_TYPE.listed, 10).call();
+      let listings = await diamondContract.methods.getAavegotchiListings(category, LISTING_TYPE.listed, 90).call();
       setListings(listings);
     }
 

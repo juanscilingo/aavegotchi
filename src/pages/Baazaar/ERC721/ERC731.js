@@ -20,7 +20,7 @@ const ListingInfo = styled.div`
 
 const TYPE_COMPONENT = {
   [LISTING_CATEGORY.aavegotchi]: Aavegotchi,
-  [LISTING_CATEGORY["opened-portal"]]: Portal,
+  [LISTING_CATEGORY["open-portal"]]: Portal,
   [LISTING_CATEGORY.portal]: ClosedPortal
 }
 
@@ -41,17 +41,16 @@ const ERC721 = props => {
     return null;
 
   const { listing, aavegotchi } = details;
-
-  console.log(details)
   const DetailsComponent = TYPE_COMPONENT[aavegotchi.status];
 
   return (
     <Style>
       <h4>Listing Info</h4>
       <ListingInfo>
-        <div>ID: {id}</div>
+        <div>ID: {aavegotchi.tokenId}</div>
         <div>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</div>
         <div>Seller: {listing.seller}</div>
+        <a href={`https://aavegotchi.com/baazaar/erc721/${id}`} target="_blank" rel="noopener noreferrer">View in app</a>
       </ListingInfo>
       <DetailsComponent {...details} />
     </Style>

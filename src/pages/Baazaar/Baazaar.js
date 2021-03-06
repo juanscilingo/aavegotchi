@@ -14,8 +14,9 @@ const Navigation = styled.div`
 
 const active = css`
   background: var(--pink);
+  
   &:hover {
-    background: var(--pink-2);
+    color: white;
   }
 
 `
@@ -26,7 +27,7 @@ const NavLink = styled(Link)`
   margin-right: 15px;
   border-radius: 6px;
 
-  ${props => props.active && active};
+  ${props => props.$active && active};
 `
 
 const Baazaar = props => {
@@ -36,9 +37,9 @@ const Baazaar = props => {
   return (
     <Style>
       <Navigation>
-        <NavLink to="/baazaar/aavegotchi" active={(category === LISTING_CATEGORY.aavegotchi).toString()}>Aavegotchis</NavLink>
-        <NavLink to="/baazaar/portal" active={(category === LISTING_CATEGORY.portal).toString()}>Portals</NavLink>
-        <NavLink to="/baazaar/opened-portal" active={(category === LISTING_CATEGORY['opened-portal']).toString()}>Opened Portals</NavLink>
+        <NavLink to="/baazaar/aavegotchi" $active={category === LISTING_CATEGORY.aavegotchi}>Aavegotchis</NavLink>
+        <NavLink to="/baazaar/portal" $active={category === LISTING_CATEGORY.portal}>Closed Portals</NavLink>
+        <NavLink to="/baazaar/open-portal" $active={category === LISTING_CATEGORY['open-portal']}>Open Portals</NavLink>
       </Navigation>
       <Switch>
         <Route path="/baazaar" component={Listings} exact />

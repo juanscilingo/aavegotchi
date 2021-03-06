@@ -59,8 +59,6 @@ const Aavegotchi = props => {
   if (!aavegotchi)
     return null;
 
-  console.log(aavegotchi)
-
   return (
     <Style>
       <Item center>

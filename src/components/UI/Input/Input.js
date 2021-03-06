@@ -15,6 +15,11 @@ const StyledInput = styled.input`
   margin-bottom: 10px;
   padding: 10px;
 
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--placeholder-color);
+    opacity: 1; /* Firefox */
+  }
+
   ${props => props.block && block};
 `
 

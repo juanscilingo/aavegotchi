@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { LISTING_CATEGORY } from 'utils/constants';
 import { diamondContract } from 'utils/contracts';
 import formatter from 'utils/formatter';
 import { MA_TOKENS } from 'utils/maTokens';
@@ -35,6 +36,37 @@ const Item = styled.div`
   font-weight: ${props => props.large ? '600' : '500'};
 `
 
+const Details = ({ aavegotchi, listing }) => {
+  switch (parseInt(aavegotchi.status)) {
+    case LISTING_CATEGORY.aavegotchi:
+      return (
+        <>
+          <Item center margin large>{aavegotchi.name ? aavegotchi.name : 'Aavegotchi'} ({aavegotchi.tokenId})</Item>
+          <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
+          <Item>Base Rarity: {aavegotchi.baseRarityScore}</Item>
+          <Item>Modified Rarity: {aavegotchi.modifiedRarityScore}</Item>
+          <Item>Staked Amount: {formatter.symbol(Web3.utils.fromWei(aavegotchi.stakedAmount), MA_TOKENS[aavegotchi.collateral] ?? aavegotchi.collateral)}</Item>
+        </>
+      )
+    case LISTING_CATEGORY['open-portal']:
+      return (
+        <>
+          <Item center margin large>Open Portal ({aavegotchi.tokenId})</Item>
+          <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
+        </>
+      )
+    case LISTING_CATEGORY.portal:
+      return (
+        <>
+        <Item center margin large>Unopened Portal ({aavegotchi.tokenId})</Item>
+        <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
+        </>
+      )
+    default:
+      return null;
+  }
+}
+
 const Listing = props => {
   const listing = props.listing.listing_;
   const aavegotchi = props.listing.aavegotchiInfo_;
@@ -57,11 +89,7 @@ const Listing = props => {
       <Item center>
         <Image src={`data:image/svg+xml;utf8,${image}`} alt="aavegotchi" />
       </Item>
-      <Item center margin large>{aavegotchi.name} ({aavegotchi.tokenId})</Item>
-      <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
-      <Item>Base Rarity: {aavegotchi.baseRarityScore}</Item>
-      <Item>Modified Rarity: {aavegotchi.modifiedRarityScore}</Item>
-      <Item>Staked Amount: {formatter.symbol(Web3.utils.fromWei(aavegotchi.stakedAmount), MA_TOKENS[aavegotchi.collateral] ?? aavegotchi.collateral)}</Item>
+      <Details aavegotchi={aavegotchi} listing={listing} />
     </StyleLink>
   )
 }

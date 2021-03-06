@@ -7,7 +7,7 @@ const Style = styled.div`
 const ClosedPortal = props => {
   return (
     <Style>
-      Closed Portal
+      <h4>Closed Portal</h4>
     </Style>
   )
 }
