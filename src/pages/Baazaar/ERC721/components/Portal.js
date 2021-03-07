@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { calculateBRS } from "utils/aavegotchi";
 import { TRAITS_BY_INDEX } from "utils/constants";
 import { diamondContract } from "utils/contracts";
 import formatter from "utils/formatter";
@@ -86,11 +87,11 @@ const Portal = props => {
             <ImageContainer>
               <Image src={`data:image/svg+xml;utf8,${details.images[i]}`} alt="aavegotchi" />
             </ImageContainer>
-            <Trait>Minimum Stake: {formatter.token(aavegotchi.minimumStake, aavegotchi.collateralType)}</Trait>
+            <Trait>Minimum Stake: {formatter.token(aavegotchi.minimumStake, aavegotchi.collateralType, { decimalPlaces: 6 })}</Trait>
             {aavegotchi.numericTraits.map((trait, k) => (
               <Trait key={k}>{TRAITS_BY_INDEX[k]} {trait}</Trait>
             ))}
-            <Total>TOTAL: {aavegotchi.numericTraits.reduce((acc, trait) => acc + parseInt(trait), 0)}</Total>
+            <Total>Base Rarity Score: {calculateBRS(aavegotchi.numericTraits)}</Total>
           </Aavegotchi>
         ))}
       </Aavegotchis>
