@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { getPrices } from 'api/quickswap/quickswap';
 
-const POLLING_INTERVAL = 1000 * 10;
+const POLLING_INTERVAL = 1000 * 10 * 60;
 
 export const PriceContext = createContext();
 
