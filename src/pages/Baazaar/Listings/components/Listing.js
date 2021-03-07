@@ -1,11 +1,10 @@
+import TokenWithPrice from 'components/TokenWithPrice/TokenWithPrice';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { LISTING_CATEGORY } from 'utils/constants';
 import { diamondContract } from 'utils/contracts';
-import formatter from 'utils/formatter';
-import { MA_TOKENS } from 'utils/maTokens';
-import Web3 from 'web3';
+import { TOKENS } from 'utils/tokens';
 
 const StyleLink = styled(Link)`
   width: calc(100% / 4 - 20px);
@@ -52,24 +51,24 @@ const Details = ({ aavegotchi, listing }) => {
       return (
         <>
           <Item center margin large>{aavegotchi.name ? aavegotchi.name : 'Aavegotchi'} ({aavegotchi.tokenId})</Item>
-          <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
+          <Item>Price: <TokenWithPrice amount={listing.priceInWei} token={TOKENS.GHST} /></Item>
           <Item>Base Rarity: {aavegotchi.baseRarityScore}</Item>
           <Item>Modified Rarity: {aavegotchi.modifiedRarityScore}</Item>
-          <Item>Staked Amount: {formatter.symbol(Web3.utils.fromWei(aavegotchi.stakedAmount), MA_TOKENS[aavegotchi.collateral] ?? aavegotchi.collateral)}</Item>
+          <Item>Staked Amount: <TokenWithPrice amount={aavegotchi.stakedAmount} token={aavegotchi.collateral} /></Item>
         </>
       )
     case LISTING_CATEGORY['open-portal']:
       return (
         <>
           <Item center margin large>Open Portal ({aavegotchi.tokenId})</Item>
-          <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
+          <Item>Price: <TokenWithPrice amount={listing.priceInWei} token={TOKENS.GHST} /></Item>
         </>
       )
     case LISTING_CATEGORY.portal:
       return (
         <>
-        <Item center margin large>Unopened Portal ({aavegotchi.tokenId})</Item>
-        <Item>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</Item>
+          <Item center margin large>Unopened Portal ({aavegotchi.tokenId})</Item>
+          <Item>Price: <TokenWithPrice amount={listing.priceInWei} token={TOKENS.GHST} /></Item>
         </>
       )
     default:

@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { LISTING_CATEGORY } from "utils/constants";
 import { diamondContract } from "utils/contracts";
-import formatter from "utils/formatter";
-import Web3 from "web3";
 import ClosedPortal from "./components/ClosedPortal";
 import Portal from "./components/Portal";
 import Aavegotchi from "./components/Aavegotchi";
+import { TOKENS } from "utils/tokens";
+import TokenWithPrice from "components/TokenWithPrice/TokenWithPrice";
 
 const Style = styled.div`
 
@@ -48,7 +48,7 @@ const ERC721 = props => {
       <h4>Listing Info</h4>
       <ListingInfo>
         <div>ID: {aavegotchi.tokenId}</div>
-        <div>Price: {formatter.symbol(Web3.utils.fromWei(listing.priceInWei), 'GHST')} ({formatter.usd(parseInt(Web3.utils.fromWei(listing.priceInWei)) * 1.62)})</div>
+        <div>Price: <TokenWithPrice amount={listing.priceInWei} token={TOKENS.GHST} /></div>
         <div>Seller: {listing.seller}</div>
         <a href={`https://aavegotchi.com/baazaar/erc721/${id}`} target="_blank" rel="noopener noreferrer">View in app</a>
       </ListingInfo>

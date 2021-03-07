@@ -4,14 +4,17 @@ import ReactDOM from 'react-dom';
 import { GlobalStyle } from './theme/theme';
 import { HashRouter as Router } from 'react-router-dom';
 import { UserContextProvider } from 'context/user';
+import { PriceContextProvider } from 'context/price';
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <UserContextProvider>
-      <Router>
-        <App />
-      </Router>
+      <PriceContextProvider>
+        <Router>
+          <App />
+        </Router>
+      </PriceContextProvider>
     </UserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

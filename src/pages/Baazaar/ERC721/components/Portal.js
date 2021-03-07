@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { TRAITS_BY_INDEX } from "utils/constants";
 import { diamondContract } from "utils/contracts";
 import formatter from "utils/formatter";
-import { MA_TOKENS } from "utils/maTokens";
-import Web3 from "web3";
 
 const Style = styled.div`
 
@@ -88,7 +86,7 @@ const Portal = props => {
             <ImageContainer>
               <Image src={`data:image/svg+xml;utf8,${details.images[i]}`} alt="aavegotchi" />
             </ImageContainer>
-            <Trait>Minimum Stake: {formatter.symbol(Web3.utils.fromWei(aavegotchi.minimumStake), MA_TOKENS[aavegotchi.collateralType])}</Trait>
+            <Trait>Minimum Stake: {formatter.token(aavegotchi.minimumStake, aavegotchi.collateralType)}</Trait>
             {aavegotchi.numericTraits.map((trait, k) => (
               <Trait key={k}>{TRAITS_BY_INDEX[k]} {trait}</Trait>
             ))}

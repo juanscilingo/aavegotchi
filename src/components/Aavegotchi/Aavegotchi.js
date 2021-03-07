@@ -1,10 +1,9 @@
+import TokenWithPrice from 'components/TokenWithPrice/TokenWithPrice';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TRAITS_BY_INDEX } from 'utils/constants';
 import { diamondContract } from 'utils/contracts';
 import formatter from 'utils/formatter';
-import { MA_TOKENS } from 'utils/maTokens';
-import Web3 from 'web3';
 
 const Style = styled.div`
   width: calc(100% / 4 - 20px);
@@ -69,7 +68,8 @@ const Aavegotchi = props => {
       <Item center margin large>{aavegotchi.name} ({aavegotchi.tokenId})</Item>
       <Item>Base Rarity: {aavegotchi.baseRarityScore}</Item>
       <Item>Modified Rarity: {aavegotchi.modifiedRarityScore}</Item>
-      <Item>Staked Amount: {formatter.symbol(Web3.utils.fromWei(aavegotchi.stakedAmount), MA_TOKENS[aavegotchi.collateral] ?? aavegotchi.collateral)}</Item>
+      <Item>Staked Amount: {formatter.token(aavegotchi.stakedAmount, aavegotchi.collateral)}</Item>
+      <Item>Staked Amount: <TokenWithPrice amount={aavegotchi.stakedAmount} token={aavegotchi.collateral} /></Item>
       {aavegotchi.numericTraits.map((trait, k) => (
         <Item key={k}>{TRAITS_BY_INDEX[k]} {trait}</Item>
       ))}
