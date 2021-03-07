@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/aavegotchi/static/js/main.308dab09.chunk.js",
-    "main.js.map": "/aavegotchi/static/js/main.308dab09.chunk.js.map",
+    "main.js": "/aavegotchi/static/js/main.ea26f424.chunk.js",
+    "main.js.map": "/aavegotchi/static/js/main.ea26f424.chunk.js.map",
     "runtime-main.js": "/aavegotchi/static/js/runtime-main.8803eb0c.js",
     "runtime-main.js.map": "/aavegotchi/static/js/runtime-main.8803eb0c.js.map",
-    "static/js/2.bffaa232.chunk.js": "/aavegotchi/static/js/2.bffaa232.chunk.js",
-    "static/js/2.bffaa232.chunk.js.map": "/aavegotchi/static/js/2.bffaa232.chunk.js.map",
+    "static/js/2.03b37e33.chunk.js": "/aavegotchi/static/js/2.03b37e33.chunk.js",
+    "static/js/2.03b37e33.chunk.js.map": "/aavegotchi/static/js/2.03b37e33.chunk.js.map",
     "index.html": "/aavegotchi/index.html",
-    "static/js/2.bffaa232.chunk.js.LICENSE.txt": "/aavegotchi/static/js/2.bffaa232.chunk.js.LICENSE.txt"
+    "static/js/2.03b37e33.chunk.js.LICENSE.txt": "/aavegotchi/static/js/2.03b37e33.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.8803eb0c.js",
-    "static/js/2.bffaa232.chunk.js",
-    "static/js/main.308dab09.chunk.js"
+    "static/js/2.03b37e33.chunk.js",
+    "static/js/main.ea26f424.chunk.js"
   ]
 }
