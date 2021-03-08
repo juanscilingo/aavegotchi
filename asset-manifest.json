@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/aavegotchi/static/js/main.af520c55.chunk.js",
-    "main.js.map": "/aavegotchi/static/js/main.af520c55.chunk.js.map",
+    "main.js": "/aavegotchi/static/js/main.ee2eaa24.chunk.js",
+    "main.js.map": "/aavegotchi/static/js/main.ee2eaa24.chunk.js.map",
     "runtime-main.js": "/aavegotchi/static/js/runtime-main.8803eb0c.js",
     "runtime-main.js.map": "/aavegotchi/static/js/runtime-main.8803eb0c.js.map",
     "static/css/2.1ad56b46.chunk.css": "/aavegotchi/static/css/2.1ad56b46.chunk.css",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.8803eb0c.js",
     "static/css/2.1ad56b46.chunk.css",
     "static/js/2.7c2eaa56.chunk.js",
-    "static/js/main.af520c55.chunk.js"
+    "static/js/main.ee2eaa24.chunk.js"
   ]
 }
