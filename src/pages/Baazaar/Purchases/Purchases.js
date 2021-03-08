@@ -27,7 +27,8 @@ const POLLING_INTERVAL = 1000 * 10;
 
 const defaultColDef = {
   sortable: true,
-  filter: true
+  filter: true,
+  minWidth: 200
 }
 
 const buildRequests = (latestBlock, sinceBlock) => {
