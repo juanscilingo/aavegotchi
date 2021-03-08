@@ -42,7 +42,7 @@ const Style = styled.div`
   padding: 5px;
   border-radius: 4px;
   color: white;
-  background: var(--lavender);
+  background: var(--secondary);
 
   ${props => props.color && color(props.color)}
   ${props => props.large && large}

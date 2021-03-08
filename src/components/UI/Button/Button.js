@@ -24,10 +24,10 @@ const StyledButton = styled.button`
   cursor: pointer;
   outline: none;
   user-select: none;
-  background: var(--lavender);
+  background: var(--secondary);
 
   :hover {
-    background: var(--lavender-2);
+    background: var(--secondary-2);
   }
 
   ${props => props.color && color(props.color)};

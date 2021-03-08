@@ -22,7 +22,7 @@ const Aavegotchi = styled.div`
   border-radius: 6px;
   box-shadow: var(--box-shadow);
   background: white;
-  color: var(--purple-2);
+  color: var(--primary-2);
   
   @media(max-width: 1024px) {
     width: calc(100% / 3 - 20px);

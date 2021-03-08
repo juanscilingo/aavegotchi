@@ -18,7 +18,7 @@ const MenuContainer = styled.div`
 `
 const itemCss = css`
   padding: 10px 15px;
-  background: var(--pink-2);
+  background: var(--primary-2);
   
   &:first-child {
     border-radius: var(--border-radius) var(--border-radius) 0px 0px;
@@ -27,7 +27,7 @@ const itemCss = css`
     border-radius: 0px 0px var(--border-radius) var(--border-radius);
   }
   &:hover {
-    background: var(--pink-3);
+    background: var(--primary-3);
   }
 `
 
@@ -43,6 +43,7 @@ const LinkItem = styled(Link)`
 
 const Element = styled.div`
   color: white;
+  cursor: pointer;
 
   &:hover {
     color: lightgray;

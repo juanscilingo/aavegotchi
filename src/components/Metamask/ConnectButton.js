@@ -27,7 +27,7 @@ const ConnectButton = props => {
   if (!user.installed)
     return (
       <a href="https://metamask.io/download.html" target="_blank" rel="noopener noreferrer">
-        <Button color="purple">Install Metamask</Button>
+        <Button>Install Metamask</Button>
       </a>
     )
     
@@ -35,10 +35,10 @@ const ConnectButton = props => {
     return <Badge large color="red">Wrong Network</Badge>
 
   if (user.account)
-    return <Button onClick={disconnect} color="purple">Disconnect</Button>
+    return <Button onClick={disconnect}>Disconnect</Button>
 
   return (
-    <Button onClick={connect} color="purple">Connect</Button>
+    <Button onClick={connect}>Connect</Button>
   )
 }
 

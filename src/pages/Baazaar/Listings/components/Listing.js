@@ -1,4 +1,5 @@
 import TokenWithPrice from 'components/TokenWithPrice/TokenWithPrice';
+import Loader from 'components/UI/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,10 +15,10 @@ const StyleLink = styled(Link)`
   border-radius: 6px;
   box-shadow: var(--box-shadow);
   background: white;
-  color: var(--purple-2);
+  color: var(--primary-2);
 
   &:hover {
-    color: var(--purple-2);
+    color: var(--primary-2);
   }
   
   @media(max-width: 1024px) {
@@ -95,9 +96,13 @@ const Listing = props => {
 
   return (
     <StyleLink to={`/baazaar/erc721/${listing.listingId}`}>
-      <Item center>
-        <Image src={`data:image/svg+xml;utf8,${image}`} alt="aavegotchi" />
-      </Item>
+      {image ? (
+        <Item center>
+          <Image src={`data:image/svg+xml;utf8,${image}`} alt="aavegotchi" />
+        </Item>
+      ) : (
+        <Loader />
+      )}
       <Details aavegotchi={aavegotchi} listing={listing} />
     </StyleLink>
   )

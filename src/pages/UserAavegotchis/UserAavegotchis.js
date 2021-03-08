@@ -1,4 +1,5 @@
 import Aavegotchi from "components/Aavegotchi/Aavegotchi";
+import Loader from "components/UI/Loader/Loader";
 import useUserContext from "hooks/useUserContext";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -22,7 +23,7 @@ const UserAavegotchis = props => {
   }, [user.account])
 
   if (!gotchis)
-    return null;
+    return <Loader />;
 
   return (
     <Style>

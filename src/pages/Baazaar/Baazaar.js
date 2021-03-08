@@ -9,7 +9,6 @@ const Style = styled.div`
 `
 
 const Baazaar = props => {
-
   return (
     <Style>
       <Switch>

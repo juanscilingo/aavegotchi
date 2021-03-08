@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const container = css`
   padding: 15px;
-  background: var(--purple-2);
+  background: var(--primary-2);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
   margin-right: 15px;

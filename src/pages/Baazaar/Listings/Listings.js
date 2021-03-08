@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { LISTING_CATEGORY, LISTING_TYPE } from "utils/constants";
 import { diamondContract } from "utils/contracts";
 import Listing from "./components/Listing";
+import Loader from 'components/UI/Loader/Loader';
 
 const Style = styled.div`
 `
@@ -18,7 +19,7 @@ const Navigation = styled.div`
 `
 
 const active = css`
-  background: var(--pink);
+  background: var(--primary-2);
   
   &:hover {
     color: white;
@@ -60,9 +61,6 @@ const Listings = props => {
     getListings();
   }, [category]);
 
-  if (!listings)
-    return null;
-
   return (
     <Style>
       <Navigation>
@@ -70,11 +68,15 @@ const Listings = props => {
         <NavLink to="/baazaar/listings/portal" $active={category === LISTING_CATEGORY.portal}>Closed Portals</NavLink>
         <NavLink to="/baazaar/listings/open-portal" $active={category === LISTING_CATEGORY['open-portal']}>Open Portals</NavLink>
       </Navigation>
-      <List>
-        {listings.map(listing => (
-          <Listing key={listing.listing_.listingId} listing={listing} /> 
-        ))}
-      </List>
+      {listings ? (
+        <List>
+          {listings.map(listing => (
+            <Listing key={listing.listing_.listingId} listing={listing} /> 
+          ))}
+        </List>
+      ) : (
+        <Loader />
+      )}
     </Style>
   )
 }

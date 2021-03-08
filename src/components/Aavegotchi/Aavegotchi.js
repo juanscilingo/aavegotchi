@@ -1,4 +1,5 @@
 import TokenWithPrice from 'components/TokenWithPrice/TokenWithPrice';
+import Loader from 'components/UI/Loader/Loader';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TRAITS_BY_INDEX } from 'utils/constants';
@@ -12,10 +13,10 @@ const Style = styled.div`
   border-radius: 6px;
   box-shadow: var(--box-shadow);
   background: white;
-  color: var(--purple-2);
+  color: var(--primary-2);
 
   &:hover {
-    color: var(--purple-2);
+    color: var(--primary-2);
   }
 
   @media(max-width: 1024px) {
@@ -61,9 +62,13 @@ const Aavegotchi = props => {
 
   return (
     <Style>
-      <Item center>
-        <Image src={`data:image/svg+xml;utf8,${image}`} alt="aavegotchi" />
-      </Item>
+      {image ? (
+        <Item center>
+          <Image src={`data:image/svg+xml;utf8,${image}`} alt="aavegotchi" />
+        </Item>
+      ): (
+        <Loader />
+      )}
       <Item center margin large>{aavegotchi.name} ({aavegotchi.tokenId})</Item>
       <Item>Base Rarity: {aavegotchi.baseRarityScore}</Item>
       <Item>Modified Rarity: {aavegotchi.modifiedRarityScore}</Item>

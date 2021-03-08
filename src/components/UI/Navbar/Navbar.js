@@ -11,7 +11,7 @@ const Style = styled.div`
   position: fixed;
   top: 0;
   height: var(--navbar-height);
-  background: var(--pink);
+  background: var(--primary-2);
   width: 100%;
   box-shadow: var(--box-shadow);
   z-index: 1;
@@ -38,7 +38,6 @@ const flex = css`
 
 const Item = styled.div`
   margin-left: 20px;
-  cursor: pointer;
   user-select: none;
 
   :hover {
@@ -86,7 +85,7 @@ const Navbar = () => {
         <Item right flex>
           {user.account && (
             <Item desktop>
-              <Badge color="purple">{formatter.trimmedAddress(user.account)}</Badge>
+              <Badge>{formatter.trimmedAddress(user.account)}</Badge>
             </Item>
           )}
           <Item>
