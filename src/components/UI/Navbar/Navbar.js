@@ -5,6 +5,7 @@ import styled, { css } from "styled-components"
 import { desktop } from "theme/utils";
 import formatter from 'utils/formatter';
 import Badge from "../Badge/Badge";
+import Menu, { MenuItem } from "../Menu/Menu";
 
 const Style = styled.div`
   position: fixed;
@@ -37,6 +38,12 @@ const flex = css`
 
 const Item = styled.div`
   margin-left: 20px;
+  cursor: pointer;
+  user-select: none;
+
+  :hover {
+    color: lightgray;
+  }
 
   &:first-child {
     margin-left: 0px;
@@ -54,7 +61,14 @@ const Navbar = () => {
     <Style>
       <Content>
         <Item>
-          <Link to="/baazaar">Baazaar</Link>
+          <Menu element={<div>Baazaar</div>}>
+            <MenuItem to="/baazaar/listings">
+              Listings
+            </MenuItem>
+            <MenuItem to="/baazaar/purchases">
+              Purchases
+            </MenuItem>
+          </Menu>
         </Item>
         <Item>
           <Link to="/utils">Utils</Link>

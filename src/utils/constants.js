@@ -5,6 +5,13 @@ export const LISTING_CATEGORY = {
   'aavegotchi': 3
 }
 
+export const LISTING_CATEGORY_NAME = {
+  [LISTING_CATEGORY.portal]: 'Closed Portal',
+  [LISTING_CATEGORY["verification-pending"]]: 'Verification Pending',
+  [LISTING_CATEGORY["open-portal"]]: 'Open Portal',
+  [LISTING_CATEGORY.aavegotchi]: 'Aavegotchi',
+}
+
 export const LISTING_TYPE = {
   listed: 'listed',
   purchased: 'purchased'
