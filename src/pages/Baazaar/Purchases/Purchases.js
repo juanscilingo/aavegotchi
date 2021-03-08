@@ -28,7 +28,7 @@ const POLLING_INTERVAL = 1000 * 10;
 const defaultColDef = {
   sortable: true,
   filter: true,
-  minWidth: 200
+  minWidth: 180
 }
 
 const buildRequests = (latestBlock, sinceBlock) => {
@@ -60,7 +60,7 @@ const Purchases = props => {
   useEffect(() => {
     const getPastEvents = async () => {
       const currentBlock = await web3.eth.getBlockNumber();
-      const requests = buildRequests(currentBlock, latestBlock.current);
+      const requests = buildRequests(currentBlock, latestBlock.current ? latestBlock.current + 1 : undefined);
 
       if (!latestBlock.current) {
         const first = await requests.shift();
@@ -117,7 +117,7 @@ const Purchases = props => {
           // onFilterChanged={onFilterChanged}
         >
           <AgGridColumn field="time" sort="desc" headerName="Date" valueFormatter={({ value }) => new Date(value * 1000).toLocaleString()}></AgGridColumn>
-          <AgGridColumn field="category" valueFormatter={({ value }) => LISTING_CATEGORY_NAME[value]}></AgGridColumn>
+          <AgGridColumn field="category" filterValueGetter={({ data }) => LISTING_CATEGORY_NAME[data.category]} valueFormatter={({ value }) => LISTING_CATEGORY_NAME[value]}></AgGridColumn>
           <AgGridColumn field="listingId" cellRenderer={({ value }) => `<a href="https://aavegotchi.com/baazaar/erc721/${value}" target="_blank" rel="noopener noreferrer">${value}</a>`} comparator={(a, b) => a - b}></AgGridColumn>
           <AgGridColumn field="erc721TokenId" headerName="Token Id" comparator={(a, b) => a - b}></AgGridColumn>
           <AgGridColumn field="seller" cellRenderer={({ value }) => `<a href="https://explorer-mainnet.maticvigil.com/address/${value}" target="_blank" rel="noopener noreferrer">${formatter.trimmedAddress(value)}</a>`}></AgGridColumn>
