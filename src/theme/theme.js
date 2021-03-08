@@ -76,6 +76,9 @@ export const GlobalStyle = createGlobalStyle`
         }
       }
     }
+    .ag-body-horizontal-scroll {
+      background: var(--purple-2);
+    }
     .ag-icon {
       color: white;
 

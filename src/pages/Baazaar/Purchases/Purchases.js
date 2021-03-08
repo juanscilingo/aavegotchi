@@ -63,7 +63,7 @@ const Purchases = props => {
 
       if (!latestBlock.current) {
         const first = await requests.shift();
-        console.log(first)
+        // console.log(first)
         const sortedEvents = first.map(mapEvent);
         setPurchases(sortedEvents)
       }
@@ -117,11 +117,11 @@ const Purchases = props => {
         >
           <AgGridColumn field="time" sort="desc" headerName="Date" valueFormatter={({ value }) => new Date(value * 1000).toLocaleString()}></AgGridColumn>
           <AgGridColumn field="category" valueFormatter={({ value }) => LISTING_CATEGORY_NAME[value]}></AgGridColumn>
-          <AgGridColumn field="listingId"></AgGridColumn>
-          <AgGridColumn field="erc721TokenId" headerName="Token Id"></AgGridColumn>
-          <AgGridColumn field="seller" valueFormatter={({ value }) => formatter.trimmedAddress(value)}></AgGridColumn>
-          <AgGridColumn field="buyer" valueFormatter={({ value }) => formatter.trimmedAddress(value)}></AgGridColumn>
-          <AgGridColumn field="priceInWei" headerName="Price" valueFormatter={({ value }) => formatter.token(value, TOKENS.GHST)}></AgGridColumn>
+          <AgGridColumn field="listingId" cellRenderer={({ value }) => `<a href="https://aavegotchi.com/baazaar/erc721/${value}" target="_blank" rel="noopener noreferrer">${value}</a>`} comparator={(a, b) => a - b}></AgGridColumn>
+          <AgGridColumn field="erc721TokenId" headerName="Token Id" comparator={(a, b) => a - b}></AgGridColumn>
+          <AgGridColumn field="seller" cellRenderer={({ value }) => `<a href="https://explorer-mainnet.maticvigil.com/address/${value}" target="_blank" rel="noopener noreferrer">${formatter.trimmedAddress(value)}</a>`}></AgGridColumn>
+          <AgGridColumn field="buyer" cellRenderer={({ value }) => `<a href="https://explorer-mainnet.maticvigil.com/address/${value}" target="_blank" rel="noopener noreferrer">${formatter.trimmedAddress(value)}</a>`}></AgGridColumn>
+          <AgGridColumn field="priceInWei" headerName="Price" valueFormatter={({ value }) => formatter.token(value, TOKENS.GHST)} comparator={(a, b) => a - b}></AgGridColumn>
         </AgGridReact>
       </Grid>
     </Style>
@@ -129,5 +129,3 @@ const Purchases = props => {
 }
 
 export default Purchases;
-
-//
