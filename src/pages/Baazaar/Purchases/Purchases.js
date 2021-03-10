@@ -21,6 +21,7 @@ const Highlights = styled.div`
   margin-bottom: 10px;
   display: flex;
   flex-wrap: wrap;
+  min-height: 104px;
 `
 
 const Grid = styled.div`
@@ -30,8 +31,7 @@ const Grid = styled.div`
 
 const EARLIEST_BLOCK = 11516320;
 const BLOCKS_PER_REQUEST = 50000;
-// const POLLING_INTERVAL = 1000 * 10; 
-const POLLING_INTERVAL = 1000 * 1000; 
+const POLLING_INTERVAL = 1000 * 10; 
 
 const defaultColDef = {
   sortable: true,
@@ -56,8 +56,8 @@ const buildRequests = (latestBlock, sinceBlock) => {
 
 const mapEvent = event => event.returnValues;
 
-const getHighestPricePurchase = data => data.reduce((prev, current) => (new BigNumber(prev.priceInWei).isGreaterThan(new BigNumber(current.priceInWei))) ? prev : current);
-const getLowestPricePurchase = data => data.reduce((prev, current) => (new BigNumber(prev.priceInWei).isLessThan(new BigNumber(current.priceInWei))) ? prev : current);
+const getHighestPricePurchase = data => data.length ? data.reduce((prev, current) => (new BigNumber(prev.priceInWei).isGreaterThan(new BigNumber(current.priceInWei))) ? prev : current) : null;
+const getLowestPricePurchase = data => data.length ? data.reduce((prev, current) => (new BigNumber(prev.priceInWei).isLessThan(new BigNumber(current.priceInWei))) ? prev : current) : null;
 const getAveragePurchasePrice = (data, category) => {
   const filteredData = data.filter(d => d.category === category.toString());
 
@@ -153,15 +153,15 @@ const Purchases = props => {
 
   return (
     <Style>
-      {highlights ? (
-        <Highlights>
-          {highlights.map(highlight => (
+      <Highlights>
+        {highlights ? (
+          highlights.map(highlight => (
             <Highlight {...highlight} />
-          ))}
-        </Highlights>
-      ) : (
-        <Loader />
-      )}
+          ))
+        ) : (
+          <Loader />
+        )}
+      </Highlights>
       <Grid className="ag-theme-alpine">
         <AgGridReact 
           rowData={purchases} 
@@ -181,9 +181,7 @@ const Purchases = props => {
           <AgGridColumn field="priceInWei" headerName="Price" valueFormatter={({ value }) => formatter.token(value, TOKENS.GHST)} comparator={(a, b) => a - b}></AgGridColumn>
         </AgGridReact>
       </Grid>
-      {filteredPurchases && (
-        <Charts purchases={filteredPurchases} />
-      )}
+      <Charts purchases={filteredPurchases} />
     </Style>
   )
 }

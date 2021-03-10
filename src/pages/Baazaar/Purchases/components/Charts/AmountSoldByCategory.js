@@ -17,8 +17,9 @@ const AmountSoldByCategory = ({ purchases }) => {
   }
 
   const data = useMemo(() => {
+    if (!purchases) return;
+    
     const groups =  groupByDay(purchases, group => group.length);
-    console.log(groups)
     return groups.map(group => ({
       date: group.date,
       aavegotchis: group.values.filter(g => parseInt(g.category) === LISTING_CATEGORY.aavegotchi).length,
@@ -26,8 +27,6 @@ const AmountSoldByCategory = ({ purchases }) => {
       closedPortals: group.values.filter(g => parseInt(g.category) === LISTING_CATEGORY.portal).length
     }))
   }, [purchases]);
-
-  console.log(data)
 
   return <Chart title={`Amount sold by category`} config={config} data={data} />
 }

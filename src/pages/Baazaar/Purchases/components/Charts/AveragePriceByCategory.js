@@ -19,6 +19,8 @@ const AveragePriceByCategory = ({ purchases }) => {
   }
 
   const data = useMemo(() => {
+    if (!purchases) return;
+
     const groups = groupByDay(purchases);
     return groups.map(group => ({
       date: group.date,
