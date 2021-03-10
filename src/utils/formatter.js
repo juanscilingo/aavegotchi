@@ -18,6 +18,8 @@ const token = (v, t, extra) => {
   const tk = typeof t === 'string' ? tokenByAddress(t) : t;
   return `${number(convertTokenDecimals(v, tk), { decimalPlaces: 3, ...extra })} ${tk.symbol}`;
 }
+const date = v => new Date(v).toLocaleDateString();
+const datetime =v => new Date(v).toLocaleString();
 
 const formatter = {
   number,
@@ -26,6 +28,8 @@ const formatter = {
   percentage,
   trimmedAddress,
   token,
+  date,
+  datetime
 }
 
 export default formatter;

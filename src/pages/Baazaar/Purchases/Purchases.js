@@ -10,6 +10,7 @@ import { diamondContract } from "utils/contracts";
 import formatter from "utils/formatter";
 import { TOKENS } from "utils/tokens";
 import web3 from "utils/web3";
+import Charts from "./components/Charts";
 import Highlight from "./components/Highlight";
 
 const Style = styled.div`
@@ -24,11 +25,13 @@ const Highlights = styled.div`
 
 const Grid = styled.div`
   height: 769px;
+  margin-bottom: 30px;
 `
 
 const EARLIEST_BLOCK = 11516320;
 const BLOCKS_PER_REQUEST = 50000;
-const POLLING_INTERVAL = 1000 * 10; 
+// const POLLING_INTERVAL = 1000 * 10; 
+const POLLING_INTERVAL = 1000 * 1000; 
 
 const defaultColDef = {
   sortable: true,
@@ -67,6 +70,7 @@ const getAveragePurchasePrice = (data, category) => {
 
 const Purchases = props => {
   const [purchases, setPurchases] = useState();
+  const [filteredPurchases, setFilteredPurchases] = useState();
   const [highlights, setHighlights] = useState();
   const latestBlock = useRef();
 
@@ -130,6 +134,7 @@ const Purchases = props => {
   useEffect(() => {
     if (!!latestBlock.current && !highlights) {
       computeHighlights(purchases);
+      setFilteredPurchases(purchases);
     }
   }, [purchases, highlights])
 
@@ -142,8 +147,8 @@ const Purchases = props => {
 
   const onFilterChanged = ({ api }) => {
     const filteredRows = api.rowModel.rowsToDisplay.map(row => row.data);
-    console.log('filter changed...', filteredRows)
     computeHighlights(filteredRows);
+    setFilteredPurchases(filteredRows);
   }
 
   return (
@@ -176,6 +181,9 @@ const Purchases = props => {
           <AgGridColumn field="priceInWei" headerName="Price" valueFormatter={({ value }) => formatter.token(value, TOKENS.GHST)} comparator={(a, b) => a - b}></AgGridColumn>
         </AgGridReact>
       </Grid>
+      {filteredPurchases && (
+        <Charts purchases={filteredPurchases} />
+      )}
     </Style>
   )
 }
