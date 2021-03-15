@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import styled, { css } from 'styled-components';
-import { LISTING_CATEGORY, LISTING_TYPE } from "utils/constants";
+import { LISTING_CATEGORY, LISTING_STATUS } from "utils/constants";
 import { diamondContract } from "utils/contracts";
 import Listing from "./components/Listing";
 import Loader from 'components/UI/Loader/Loader';
@@ -54,7 +54,7 @@ const Listings = props => {
 
   useEffect(() => {
     const getListings = async() => {
-      let listings = await diamondContract.methods.getAavegotchiListings(category, LISTING_TYPE.listed, 90).call();
+      let listings = await diamondContract.methods.getAavegotchiListings(category, LISTING_STATUS.listed, 90).call();
       setListings(listings);
     }
 

@@ -1,3 +1,8 @@
+export const LISTING_TYPE = {
+  ERC721: 'ERC721',
+  ERC1155: 'ERC1155'
+}
+
 export const LISTING_CATEGORY = {
   'portal': 0,
   'verification-pending': 1,
@@ -12,7 +17,7 @@ export const LISTING_CATEGORY_NAME = {
   [LISTING_CATEGORY.aavegotchi]: 'Aavegotchi',
 }
 
-export const LISTING_TYPE = {
+export const LISTING_STATUS = {
   listed: 'listed',
   purchased: 'purchased'
 }
