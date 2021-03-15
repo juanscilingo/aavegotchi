@@ -5,6 +5,7 @@ import Home from "pages/Home/Home";
 import { Route, Switch } from "react-router-dom";
 import useUserContext from "hooks/useUserContext";
 import UserAavegotchis from "pages/UserAavegotchis/UserAavegotchis";
+import Aavegotchis from "pages/Aavegotchis/Aavegotchis";
 
 const Routes = props => {
   const { user } = useUserContext();
@@ -15,6 +16,7 @@ const Routes = props => {
       <Route path="/baazaar/:category?" component={Baazaar} />
       <Route path="/utils" component={Utils} />
       <Route path="/aavegotchi/:id" component={Aavegotchi} />
+      <Route path="/aavegotchis/:id?" component={Aavegotchis} />
       {user.account && user.isMatic && (
         <Route path="/user/aavegotchis" component={UserAavegotchis} />
       )}

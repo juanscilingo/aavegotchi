@@ -1,5 +1,6 @@
 const env = {
-  DEFAULT_RPC_URL: process.env.DEFAULT_RPC_URL
+  DEFAULT_RPC_URL: process.env.REACT_APP_DEFAULT_RPC_URL,
+  AAVEGOTCHI_SUBGRAPH_URL: process.env.REACT_APP_AAVEGOTCHI_SUBGRAPH_URL
 }
 
 export default env;

@@ -60,6 +60,9 @@ const Navbar = () => {
     <Style>
       <Content>
         <Item>
+          <Link to="/aavegotchis">Aavegotchis</Link>
+        </Item>
+        <Item>
           <Menu element={<div>Baazaar</div>}>
             <MenuItem to="/baazaar/listings">
               Listings

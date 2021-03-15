@@ -50,7 +50,7 @@ const Aavegotchi = props => {
 
   useEffect(() => {
     const getSvg = async () => {
-      const svg = await diamondContract.methods.getAavegotchiSvg(aavegotchi.tokenId).call();
+      const svg = await diamondContract.methods.getAavegotchiSvg(aavegotchi.id).call();
       setImage(encodeURIComponent(svg));
     }
 
@@ -69,7 +69,7 @@ const Aavegotchi = props => {
       ): (
         <Loader />
       )}
-      <Item center margin large>{aavegotchi.name} ({aavegotchi.tokenId})</Item>
+      <Item center margin large>{aavegotchi.name} ({aavegotchi.id})</Item>
       <Item>Base Rarity: {aavegotchi.baseRarityScore}</Item>
       <Item>Modified Rarity: {aavegotchi.modifiedRarityScore}</Item>
       <Item>Staked Amount: <TokenWithPrice amount={aavegotchi.stakedAmount} token={aavegotchi.collateral} /></Item>

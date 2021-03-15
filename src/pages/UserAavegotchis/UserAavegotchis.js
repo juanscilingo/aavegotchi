@@ -1,9 +1,9 @@
+import { aavegotchis } from "api/aavegotchi-subgraph/queries/aavegotchis";
 import Aavegotchi from "components/Aavegotchi/Aavegotchi";
 import Loader from "components/UI/Loader/Loader";
 import useUserContext from "hooks/useUserContext";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { diamondContract } from "utils/contracts";
+import { useQuery } from "urql";
 
 const Style = styled.div`
 
@@ -11,25 +11,24 @@ const Style = styled.div`
 
 const UserAavegotchis = props => {
   const { user } = useUserContext();
-  const [gotchis, setGotchis] = useState();
-
-  useEffect(() => {
-    const fetchGotchis = async () => {
-      let gotchis = await diamondContract.methods.allAavegotchisOfOwner(user.account).call();
-      setGotchis(gotchis);
+  const [{ data, fetching, error }] = useQuery({
+    query: aavegotchis,
+    variables: {
+      where: { owner: user.account }
     }
+  })
 
-    fetchGotchis();
-  }, [user.account])
+  if (error)
+    return null;
 
-  if (!gotchis)
+  if (fetching)
     return <Loader />;
 
   return (
     <Style>
       <h2>My Aavegotchis</h2>
-      {gotchis.map(gotchi => (
-        <Aavegotchi key={gotchi.tokenId} aavegotchi={gotchi} />
+      {data.aavegotchis.map(gotchi => (
+        <Aavegotchi key={gotchi.id} aavegotchi={gotchi} />
       ))}
     </Style>
   )
