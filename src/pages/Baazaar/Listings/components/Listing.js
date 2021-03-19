@@ -19,6 +19,7 @@ const Listing = ({ listing }) => {
       <div>Listing: {listing.id}</div>
       <div>Price: <TokenWithPrice amount={listing.priceInWei} token={TOKENS.GHST} /></div>
       <div>Category: {LISTING_CATEGORY_NAME[listing.category]}</div>
+      <div>Date: {new Date(parseInt(listing.timeCreated * 1000)).toLocaleString()}</div>
     </Style>
   )
 }

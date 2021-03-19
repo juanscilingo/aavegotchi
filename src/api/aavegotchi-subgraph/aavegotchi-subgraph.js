@@ -1,15 +1,6 @@
 import env from 'config/env';
-import { createClient, Provider } from 'urql';
+import { GraphQLClient } from 'graphql-request';
 
-const client = createClient({
-  url: env.AAVEGOTCHI_SUBGRAPH_URL,
-  requestPolicy: 'network-only'
-});
+const subgraph = new GraphQLClient(env.AAVEGOTCHI_SUBGRAPH_URL);
 
-const SubgraphProvider = ({ children }) => (
-  <Provider value={client}>
-    {children}
-  </Provider>
-);
-
-export default SubgraphProvider;
+export default subgraph;

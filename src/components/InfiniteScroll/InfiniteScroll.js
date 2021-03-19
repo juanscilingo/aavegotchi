@@ -23,10 +23,10 @@ const InfiniteScroll = ({ fetchData, fetching, children, hasMore, style }) => {
       if (fetching || !hasMore)
         return false;
 
-      entries.forEach(entry => {
+      entries.forEach(async entry => {
         const { y } = entry.boundingClientRect;
         if (entry.isIntersecting && entry.intersectionRatio >= previousRatio && (!previousY || y < previousY)) {
-          fetchData()
+          await fetchData()
         }
 
         previousY = y;

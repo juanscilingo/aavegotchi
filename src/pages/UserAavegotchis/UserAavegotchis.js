@@ -1,9 +1,10 @@
 import { aavegotchis } from "api/aavegotchi-subgraph/queries/aavegotchis";
 import Aavegotchi from "components/Aavegotchi/Aavegotchi";
 import Loader from "components/UI/Loader/Loader";
+import useQuery from "hooks/useQuery";
 import useUserContext from "hooks/useUserContext";
+import { useMemo } from "react";
 import styled from "styled-components";
-import { useQuery } from "urql";
 
 const Style = styled.div`
 
@@ -11,15 +12,12 @@ const Style = styled.div`
 
 const UserAavegotchis = props => {
   const { user } = useUserContext();
-  const [{ data, fetching, error }] = useQuery({
-    query: aavegotchis,
-    variables: {
-      where: { owner: user.account }
-    }
-  })
+  
+  const variables = useMemo(() => ({
+    where: { owner: user.account }
+  }), [user.account]);
 
-  if (error)
-    return null;
+  const { data, fetching } = useQuery(aavegotchis, variables)
 
   if (fetching)
     return <Loader />;

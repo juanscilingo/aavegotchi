@@ -12,6 +12,7 @@ import { TOKENS } from "utils/tokens";
 const Style = styled.div`
   margin-bottom: 30px;
   display: flex;
+  flex-wrap: wrap;
 `
 
 const Label = styled.span`
@@ -67,6 +68,7 @@ export const PARSED_INITIAL_FILTERS = parseFilters(INITIAL_FILTERS);
 const Filters = ({ onChange }) => {
   const mounted = useRef(null);
   const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const [sorting, setSorting] = useState({ orderBy: 'timeCreated', orderDirection: 'desc' });
 
   const changeFilter = (field, key = 'value') => value => {
     setFilters(prevFilters => ({ ...prevFilters, [field]: { ...prevFilters[field], [key]: value } }))
@@ -78,8 +80,8 @@ const Filters = ({ onChange }) => {
       return;
     }
 
-    onChange(parseFilters(filters))
-  }, [filters, onChange])
+    onChange(parseFilters(filters), sorting)
+  }, [filters, sorting, onChange])
 
   return (
     <Style>
@@ -118,6 +120,21 @@ const Filters = ({ onChange }) => {
       </Filter>
       <Filter>
         <Switch label="Include Cancelled" checked={filters.cancelled.value} onChange={changeFilter('cancelled')} />
+      </Filter>
+      <Filter right>
+        <Label>Sort By</Label>
+        <InputGroup>
+          <Select value={sorting.orderBy} onChange={v => setSorting(p => ({ ...p, orderBy: v }))} noArrow>
+            <Option value="id">ID</Option>
+            <Option value="timeCreated">Date</Option>
+            <Option value="priceInWei">Price</Option>
+            <Option value="hauntId">Haunt ID</Option>
+          </Select>
+          <Select value={sorting.orderDirection} onChange={v => setSorting(p => ({ ...p, orderDirection: v }))} noArrow>
+            <Option value="asc">↑</Option>
+            <Option value="desc">↓</Option>
+          </Select>
+        </InputGroup>
       </Filter>
     </Style>
   )

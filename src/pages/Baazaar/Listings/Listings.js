@@ -2,9 +2,9 @@ import { erc721Listings } from "api/aavegotchi-subgraph/queries/erc721Listings";
 import Emote from "components/Emote/Emote";
 import InfiniteScroll from "components/InfiniteScroll/InfiniteScroll";
 import useDebouncedCallback from "hooks/useDebouncedCallback";
+import useQuery from "hooks/useQuery";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useQuery } from "urql";
 import Filters, { PARSED_INITIAL_FILTERS } from "./components/Filters";
 import Listing from "./components/Listing";
 
@@ -34,21 +34,21 @@ const Listings = props => {
   const [variables, setVariables] = useState({
     first: PAGE_SIZE,
     skip: 0,
-    where: PARSED_INITIAL_FILTERS
+    where: PARSED_INITIAL_FILTERS,
+    orderBy: 'timeCreated',
+    orderDirection: 'desc'
   });
 
-  const [{ data, fetching }] = useQuery({
-    query: erc721Listings,
-    variables
-  })
+  const { data, fetching } = useQuery(erc721Listings, variables);
 
-  const onFiltersChanged = useDebouncedCallback(newFilters => {
+  const onFiltersChanged = useDebouncedCallback((newFilters, sorting) => {
     setListings([]);
     setEndReached(false);
     setVariables({
       first: PAGE_SIZE,
       skip: 0,
-      where: newFilters
+      where: newFilters,
+      ...sorting
     })
   }, 500)
   

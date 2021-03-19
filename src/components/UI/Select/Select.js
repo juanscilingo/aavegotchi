@@ -22,6 +22,8 @@ const Options = styled.div`
   top: 100%;
   left: 0px;
   min-width: 100%;
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--primary-3);
 `
 
 const Arrow = styled.div`
@@ -29,6 +31,7 @@ const Arrow = styled.div`
   right: 10px;
   font-size: 10px;
   top: calc(50% - 6px);
+  border-left: none !important;
 `
 
 const Select = props => {

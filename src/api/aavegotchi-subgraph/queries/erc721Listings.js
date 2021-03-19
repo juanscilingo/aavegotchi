@@ -1,4 +1,4 @@
-import { gql } from "@urql/core";
+import { gql } from "graphql-request";
 
 export const erc721Listings = gql`
   query ($first: Int = 20, $skip: Int = 0, $orderBy: ERC721Listing_orderBy = timeCreated, $orderDirection: OrderDirection! = desc, $where: ERC721Listing_filter) {

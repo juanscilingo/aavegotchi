@@ -1,4 +1,4 @@
-import { gql } from "@urql/core";
+import { gql } from "graphql-request";
 
 export const aavegotchis = gql`
   query ($first: Int = 20, $skip: Int = 0, $orderBy: Aavegotchi_orderBy = id, $orderDirection: OrderDirection = asc, $where: Aavegotchi_filter) {

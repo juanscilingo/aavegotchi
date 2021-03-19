@@ -1,9 +1,9 @@
 import { aavegotchis } from "api/aavegotchi-subgraph/queries/aavegotchis";
 import Aavegotchi from "components/Aavegotchi/Aavegotchi";
 import InfiniteScroll from "components/InfiniteScroll/InfiniteScroll";
+import useQuery from "hooks/useQuery";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useQuery } from "urql";
 
 const Style = styled.div`
 
@@ -18,16 +18,13 @@ const PAGE_SIZE = 12;
 
 const Aavegotchis = props => {
   const [gotchis, setGotchis] = useState([]);
-  const [pagination, setPagination] = useState({ first: PAGE_SIZE, skip: 0 })
+  const [variables, setVariables] = useState({ 
+    first: PAGE_SIZE, 
+    skip: 0,
+    where: { status: "3" }
+  });
   const [endReached, setEndReached] = useState(false);
-  const [{ data, fetching }] = useQuery({
-    query: aavegotchis,
-    variables: {
-      first: pagination.first,
-      skip: pagination.skip,
-      where: { status: "3" }
-    }
-  })
+  const { data, fetching } = useQuery(aavegotchis, variables);
   
   useEffect(() => {
     if (!data || !data.aavegotchis)
@@ -45,7 +42,7 @@ const Aavegotchis = props => {
 
   const fetchData = () => {
     if (!fetching)
-      setPagination(prevState => ({ ...pagination, skip: prevState.skip + PAGE_SIZE + 1 }))
+      setVariables(p => ({ ...p, skip: p.skip + PAGE_SIZE + 1 }))
   }
 
   return (

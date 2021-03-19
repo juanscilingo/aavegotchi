@@ -7,18 +7,15 @@ import { UserContextProvider } from 'context/user';
 import { PriceContextProvider } from 'context/price';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import SubgraphProvider from 'api/aavegotchi-subgraph/aavegotchi-subgraph';
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <UserContextProvider>
       <PriceContextProvider>
-        <SubgraphProvider>
-          <Router>
-            <App />
-          </Router>
-        </SubgraphProvider>
+        <Router>
+          <App />
+        </Router>
       </PriceContextProvider>
     </UserContextProvider>
   </React.StrictMode>,
