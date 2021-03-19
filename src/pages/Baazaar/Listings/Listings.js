@@ -1,82 +1,88 @@
-import { Link, useParams } from 'react-router-dom';
+import { erc721Listings } from "api/aavegotchi-subgraph/queries/erc721Listings";
+import Emote from "components/Emote/Emote";
+import InfiniteScroll from "components/InfiniteScroll/InfiniteScroll";
+import useDebouncedCallback from "hooks/useDebouncedCallback";
 import { useEffect, useState } from "react";
-import styled, { css } from 'styled-components';
-import { LISTING_CATEGORY, LISTING_STATUS } from "utils/constants";
-import { diamondContract } from "utils/contracts";
+import styled from "styled-components";
+import { useQuery } from "urql";
+import Filters, { PARSED_INITIAL_FILTERS } from "./components/Filters";
 import Listing from "./components/Listing";
-import Loader from 'components/UI/Loader/Loader';
 
 const Style = styled.div`
 `
 
-const Navigation = styled.div`
-  margin: 15px 0px 30px 0px;
-
-  @media(max-width: 550px) {
-    display: flex;
-    justify-content: space-between;
-  }
+const List = styled(InfiniteScroll)`
 `
 
-const active = css`
-  background: var(--primary-2);
-  
-  &:hover {
-    color: white;
-  }
-
-`
-
-const NavLink = styled(Link)`
-  font-size: 16px;
-  padding: 10px 15px;
-  margin-right: 15px;
-  border-radius: 6px;
-
-  @media(max-width: 550px) {
-    font-size: 15px;
-    margin-right: 10px;
-    padding: 8px 12px;
-  }
-
-  ${props => props.$active && active};
-`
-
-const List = styled.div`
+const Message = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  color: lightgray;
+
+  img {
+    margin-left: 8px;
+  }
 `
+
+const PAGE_SIZE = 100;
 
 const Listings = props => {
-  const params = useParams();
-  const category = LISTING_CATEGORY[params.category] ?? LISTING_CATEGORY.aavegotchi;
-  const [listings, setListings] = useState(null);
+  const [listings, setListings] = useState([]);
+  const [endReached, setEndReached] = useState(false);
+  const [variables, setVariables] = useState({
+    first: PAGE_SIZE,
+    skip: 0,
+    where: PARSED_INITIAL_FILTERS
+  });
 
+  const [{ data, fetching }] = useQuery({
+    query: erc721Listings,
+    variables
+  })
+
+  const onFiltersChanged = useDebouncedCallback(newFilters => {
+    setListings([]);
+    setEndReached(false);
+    setVariables({
+      first: PAGE_SIZE,
+      skip: 0,
+      where: newFilters
+    })
+  }, 500)
+  
   useEffect(() => {
-    const getListings = async() => {
-      let listings = await diamondContract.methods.getAavegotchiListings(category, LISTING_STATUS.listed, 90).call();
-      setListings(listings);
-    }
+    if (!data || !data.erc721Listings)
+      return;
 
-    getListings();
-  }, [category]);
+    if (data.erc721Listings.length) {
+      setListings(prev => [...prev, ...data.erc721Listings]);
+      if (data.erc721Listings.length < PAGE_SIZE)
+        setEndReached(true);
+    }
+    else
+      setEndReached(true);
+  }, [data]);
+
+  const fetchData = () => {
+    if (!fetching)
+      setVariables(prevState => ({ ...prevState, skip: prevState.skip + PAGE_SIZE + 1 }))
+  }
 
   return (
     <Style>
-      <Navigation>
-        <NavLink to="/baazaar/listings/aavegotchi" $active={category === LISTING_CATEGORY.aavegotchi}>Aavegotchis</NavLink>
-        <NavLink to="/baazaar/listings/portal" $active={category === LISTING_CATEGORY.portal}>Closed Portals</NavLink>
-        <NavLink to="/baazaar/listings/open-portal" $active={category === LISTING_CATEGORY['open-portal']}>Open Portals</NavLink>
-      </Navigation>
-      {listings ? (
-        <List>
-          {listings.map(listing => (
-            <Listing key={listing.listing_.listingId} listing={listing} /> 
-          ))}
-        </List>
-      ) : (
-        <Loader />
-      )}
+      <h2>Listings</h2>
+      <Filters onChange={onFiltersChanged}/>
+      <List fetchData={fetchData} fetching={fetching} hasMore={!endReached}>
+        {endReached && !listings.length && (
+          <Message>We couldn't find any listing matching your criteria <Emote alias="sadkek" /></Message>
+        )}
+        {listings.map(listing => <Listing listing={listing} key={listing.id} />)}
+        {endReached && !!listings.length && (
+          <Message>That's all! <Emote alias="peepoWeirdLook" style={{ marginBottom: 10}} /></Message>
+        )}
+      </List>
     </Style>
   )
 }

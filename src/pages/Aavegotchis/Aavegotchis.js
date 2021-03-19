@@ -1,8 +1,7 @@
 import { aavegotchis } from "api/aavegotchi-subgraph/queries/aavegotchis";
 import Aavegotchi from "components/Aavegotchi/Aavegotchi";
-import Loader from "components/UI/Loader/Loader";
+import InfiniteScroll from "components/InfiniteScroll/InfiniteScroll";
 import { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
 import styled from "styled-components";
 import { useQuery } from "urql";
 
@@ -10,16 +9,18 @@ const Style = styled.div`
 
 `
 
-const StyledInfiniteScroll = styled(InfiniteScroll)`
+const List = styled.div`
   display: flex;
   flex-wrap: wrap;
-  min-height: 100vh;
 `
+
+const PAGE_SIZE = 12;
 
 const Aavegotchis = props => {
   const [gotchis, setGotchis] = useState([]);
-  const [pagination, setPagination] = useState({ first: 12, skip: 0 })
-  const [{ data, fetching, error }] = useQuery({
+  const [pagination, setPagination] = useState({ first: PAGE_SIZE, skip: 0 })
+  const [endReached, setEndReached] = useState(false);
+  const [{ data, fetching }] = useQuery({
     query: aavegotchis,
     variables: {
       first: pagination.first,
@@ -29,32 +30,34 @@ const Aavegotchis = props => {
   })
   
   useEffect(() => {
-    if (data)
-      setGotchis(prev => [...prev, ...data.aavegotchis])
+    if (!data || !data.aavegotchis)
+      return;
+
+    if (data.aavegotchis.length) {
+      setGotchis(prev => [...prev, ...data.aavegotchis]);
+      if (data.aavegotchis.length < PAGE_SIZE)
+        setEndReached(true);
+    }
+    else
+      setEndReached(true);
   }, [data]);
 
 
-  const loadMore = params => {
+  const fetchData = () => {
     if (!fetching)
-      setPagination(prevState => ({ ...pagination, skip: prevState.skip + prevState.first }))
+      setPagination(prevState => ({ ...pagination, skip: prevState.skip + PAGE_SIZE + 1 }))
   }
-
-  if (error)
-    return null;
 
   return (
     <Style>
       <h2>Aavegotchis</h2>
-      <StyledInfiniteScroll
-        pageStart={0}
-        loadMore={loadMore}
-        hasMore
-        loader={<Loader key={0} />}
-      >
-        {gotchis.map(gotchi => (
-          <Aavegotchi key={gotchi.id} aavegotchi={gotchi} />
-        ))}
-      </StyledInfiniteScroll>
+      <InfiniteScroll fetchData={fetchData} fetching={fetching} hasMore={!endReached}>
+        <List>
+          {gotchis.map(gotchi => (
+            <Aavegotchi key={gotchi.id} aavegotchi={gotchi} />
+          ))}
+        </List>
+      </InfiniteScroll>
     </Style>
   )
 }

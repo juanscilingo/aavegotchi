@@ -1,6 +1,6 @@
 import usePriceContext from "hooks/usePriceContext";
 import formatter from "utils/formatter";
-import { convertTokenDecimals } from "utils/numbers";
+import { convertFromWeiToTokenDecimals } from "utils/numbers";
 
 const TokenWithPrice = props => {
   const { amount, token } = props;
@@ -10,7 +10,7 @@ const TokenWithPrice = props => {
     return <span>{formatter.token(amount, token)}</span>
 
   return (
-    <span>{formatter.token(amount, token)} ({formatter.usd(convertTokenDecimals(amount, token) * price(token))})</span>
+    <span>{formatter.token(amount, token)} ({formatter.usd(convertFromWeiToTokenDecimals(amount, token) * price(token))})</span>
   )
 }
 

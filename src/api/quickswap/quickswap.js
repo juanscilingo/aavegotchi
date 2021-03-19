@@ -1,4 +1,4 @@
-import { convertTokenDecimals } from "utils/numbers";
+import { convertFromWeiToTokenDecimals } from "utils/numbers";
 import { TOKENS, tokenByAddress } from "utils/tokens";
 import { factoryContract, getPairContract } from "./contracts";
 
@@ -14,8 +14,8 @@ const getReserves = async (t0, t1) => {
   ]);
 
   const tokenReserves = {
-    [token0]: convertTokenDecimals(reserves.reserve0, tokenByAddress(token0)),
-    [token1]: convertTokenDecimals(reserves.reserve1, tokenByAddress(token1))
+    [token0]: convertFromWeiToTokenDecimals(reserves.reserve0, tokenByAddress(token0)),
+    [token1]: convertFromWeiToTokenDecimals(reserves.reserve1, tokenByAddress(token1))
   }
 
   return [tokenReserves[t0], tokenReserves[t1]];

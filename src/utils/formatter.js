@@ -1,5 +1,5 @@
 import { tokenByAddress } from "./tokens";
-import { convertTokenDecimals } from "./numbers";
+import { convertFromWeiToTokenDecimals } from "./numbers";
 
 const number = (v, { decimalPlaces, prefix = '', suffix = '' } = {}) => {
   if (decimalPlaces === undefined || decimalPlaces === null)
@@ -16,7 +16,7 @@ const percentage = (v, extra) => `${number(v * 100, extra)}%`;
 const trimmedAddress = v => `${v.slice(0, 6)}...${v.slice(-4)}`;
 const token = (v, t, extra) => {
   const tk = typeof t === 'string' ? tokenByAddress(t) : t;
-  return `${number(convertTokenDecimals(v, tk), { decimalPlaces: 3, ...extra })} ${tk.symbol}`;
+  return `${number(convertFromWeiToTokenDecimals(v, tk), { decimalPlaces: 3, ...extra })} ${tk.symbol}`;
 }
 const date = v => new Date(v).toLocaleDateString();
 const datetime =v => new Date(v).toLocaleString();

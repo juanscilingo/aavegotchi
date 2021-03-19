@@ -4,16 +4,16 @@ export const LISTING_TYPE = {
 }
 
 export const LISTING_CATEGORY = {
-  'portal': 0,
-  'verification-pending': 1,
-  'open-portal': 2,
-  'aavegotchi': 3
+  portal: 0,
+  verificationPending: 1,
+  openPortal: 2,
+  aavegotchi: 3
 }
 
 export const LISTING_CATEGORY_NAME = {
   [LISTING_CATEGORY.portal]: 'Closed Portal',
-  [LISTING_CATEGORY["verification-pending"]]: 'Verification Pending',
-  [LISTING_CATEGORY["open-portal"]]: 'Open Portal',
+  [LISTING_CATEGORY.verificationPending]: 'Verification Pending',
+  [LISTING_CATEGORY.openPortal]: 'Open Portal',
   [LISTING_CATEGORY.aavegotchi]: 'Aavegotchi',
 }
 

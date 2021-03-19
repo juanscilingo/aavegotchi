@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -42,9 +43,9 @@ const Ball = styled.div`
   }
 `
 
-const Loader = props => {
+const Loader = React.forwardRef((props, ref) => {
   return (
-    <Container inline={props.inline}>
+    <Container inline={props.inline} ref={ref}>
       <Style>
         <Ball />
         <Ball />
@@ -52,6 +53,6 @@ const Loader = props => {
       </Style>
     </Container>
   )
-}
+})
 
 export default Loader;

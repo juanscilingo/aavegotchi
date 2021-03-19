@@ -20,7 +20,7 @@ const ListingInfo = styled.div`
 
 const TYPE_COMPONENT = {
   [LISTING_CATEGORY.aavegotchi]: Aavegotchi,
-  [LISTING_CATEGORY["open-portal"]]: Portal,
+  [LISTING_CATEGORY.openPortal]: Portal,
   [LISTING_CATEGORY.portal]: ClosedPortal
 }
 

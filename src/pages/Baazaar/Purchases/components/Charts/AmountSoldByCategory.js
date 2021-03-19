@@ -23,7 +23,7 @@ const AmountSoldByCategory = ({ purchases }) => {
     return groups.map(group => ({
       date: group.date,
       aavegotchis: group.values.filter(g => parseInt(g.category) === LISTING_CATEGORY.aavegotchi).length,
-      openPortals: group.values.filter(g => parseInt(g.category) === LISTING_CATEGORY["open-portal"]).length,
+      openPortals: group.values.filter(g => parseInt(g.category) === LISTING_CATEGORY.openPortal).length,
       closedPortals: group.values.filter(g => parseInt(g.category) === LISTING_CATEGORY.portal).length
     }))
   }, [purchases]);

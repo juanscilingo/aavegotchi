@@ -18,6 +18,49 @@ export const erc721Listings = gql`
       seller
       timeCreated
       timePurchased
+      gotchi {
+        baseRarityScore
+        claimedAt
+        collateral
+        createdAt
+        equippedWearables
+        escrow
+        experience
+        hauntId
+        id
+        kinship
+        lastInteracted
+        level
+        locked
+        minimumStake
+        modifiedNumericTraits
+        modifiedRarityScore
+        name
+        modifiedNumericTraits
+        owner {
+          id
+        }
+        portal {  
+          boughtAt
+          buyer {
+            id
+          }
+          claimedAt
+          hauntId
+          id
+          openedAt
+          owner {
+            id
+          }
+          status
+        }
+        randomNumber
+        stakedAmount
+        status
+        timesInteracted
+        toNextLevel
+        usedSkillPoints
+      }
     }
   }
 `

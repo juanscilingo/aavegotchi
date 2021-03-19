@@ -12,12 +12,12 @@ const StyledInput = styled.input`
   border: none;
   background: rgba(0, 0, 0, 0.2);
   color: white;
-  margin-bottom: 10px;
   padding: 10px;
+  font-size: 14px;
 
-  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  ::placeholder {
     color: var(--placeholder-color);
-    opacity: 1; /* Firefox */
+    opacity: 1;
   }
 
   ${props => props.block && block};

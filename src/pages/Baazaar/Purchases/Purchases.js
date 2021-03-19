@@ -84,13 +84,13 @@ const Purchases = props => {
     const lowestPricePurchase = getLowestPricePurchase(data);
     if (lowestPricePurchase) highlights.push({ key: 'lowest-price-purchase', title: 'Lowest Paid', subtitle: LISTING_CATEGORY_NAME[lowestPricePurchase.category], value: formatter.token(lowestPricePurchase.priceInWei, TOKENS.GHST), href: `https://aavegotchi.com/baazaar/erc721/${lowestPricePurchase.listingId}` });
     
-    const averageClosedPortalPurchasePrice = getAveragePurchasePrice(data, LISTING_CATEGORY["portal"]);
+    const averageClosedPortalPurchasePrice = getAveragePurchasePrice(data, LISTING_CATEGORY.portal);
     if (averageClosedPortalPurchasePrice) highlights.push({ key: 'average-closed-portal-purchase-price', title: 'Avg. Purchase Price', subtitle: 'Closed Portal', value: formatter.token(averageClosedPortalPurchasePrice.toString(), TOKENS.GHST) });
 
-    const averageOpenPortalPurchasePrice = getAveragePurchasePrice(data, LISTING_CATEGORY["open-portal"]);
+    const averageOpenPortalPurchasePrice = getAveragePurchasePrice(data, LISTING_CATEGORY.openPortal);
     if (averageOpenPortalPurchasePrice) highlights.push({ key: 'average-open-portal-purchase-price', title: 'Avg. Purchase Price', subtitle: 'Open Portal', value: formatter.token(averageOpenPortalPurchasePrice.toString(), TOKENS.GHST) });
     
-    const averageAavegotchiPurchasePrice = getAveragePurchasePrice(data, LISTING_CATEGORY["aavegotchi"]);
+    const averageAavegotchiPurchasePrice = getAveragePurchasePrice(data, LISTING_CATEGORY.aavegotchi);
     if (averageAavegotchiPurchasePrice) highlights.push({ key: 'average-aavegotchi-purchase-price', title: 'Avg. Purchase Price', subtitle: 'Aavegotchi', value: formatter.token(averageAavegotchiPurchasePrice.toString(), TOKENS.GHST) });
 
     // LAST 7 DAYS
@@ -116,7 +116,6 @@ const Purchases = props => {
 
       if (!latestBlock.current) {
         const first = await requests.shift();
-        // console.log(first)
         const sortedEvents = first.map(mapEvent);
         setPurchases(sortedEvents)
       }
