@@ -25,6 +25,20 @@ const Style = styled.div`
     color: white;
     box-shadow: var(--box-shadow);
   }
+
+  @media(max-width: 1280px) {
+    width: calc(100% / 4 - 15px);
+  }
+  @media(max-width: 1050px) {
+    width: calc(100% / 3 - 15px);
+  }
+  @media(max-width: 800px) {
+    width: calc(100% / 2 - 15px);
+  }
+  @media(max-width: 550px) {
+    width: 100%;
+    margin-right: 0px;
+  }
 `
 
 const ListingId = styled.div`
