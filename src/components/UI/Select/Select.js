@@ -24,6 +24,7 @@ const Options = styled.div`
   min-width: 100%;
   box-shadow: var(--box-shadow);
   border: 1px solid var(--primary-3);
+  z-index: 10;
 `
 
 const Arrow = styled.div`

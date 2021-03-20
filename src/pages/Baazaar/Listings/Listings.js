@@ -12,6 +12,8 @@ const Style = styled.div`
 `
 
 const List = styled(InfiniteScroll)`
+  display: flex;
+  flex-wrap: wrap;
 `
 
 const Message = styled.div`

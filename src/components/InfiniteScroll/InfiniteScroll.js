@@ -6,7 +6,7 @@ const Style = styled.div`
 
 `
 
-const InfiniteScroll = ({ fetchData, fetching, children, hasMore, style }) => {
+const InfiniteScroll = ({ fetchData, fetching, children, hasMore, className }) => {
   const trigger = useRef();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const InfiniteScroll = ({ fetchData, fetching, children, hasMore, style }) => {
   }, [fetchData, fetching, hasMore]);
   
   return (
-    <Style style={style}>
+    <Style className={className}>
       {children}
       {hasMore && <Loader ref={trigger} />}
     </Style>
